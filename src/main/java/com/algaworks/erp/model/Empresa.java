@@ -94,6 +94,14 @@ public class Empresa implements Serializable {
 	public void setRamoAtividade(RamoAtividade ramoAtividade) {
 		this.ramoAtividade = ramoAtividade;
 	}
+	
+	public TipoEmpresa getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoEmpresa tipo) {
+		this.tipo = tipo;
+	}
 
 	@Override
 	public int hashCode() {
