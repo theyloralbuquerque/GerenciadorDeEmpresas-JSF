@@ -22,20 +22,20 @@
 		<h:form>
 			<h:panelGrid columns="2">
 				<h:outputLabel value="Razão Social: " for="razaoSocial" />
-				<h:inputText id="razaoSocial" />
+				<h:inputText id="razaoSocial" value="#{gestaoEmpresasBean.empresa.razaoSocial}" />
 
 				<h:outputLabel value="Nome fantasia: " for="nomeFantasia" />
-				<h:inputText id="nomeFantasia" />
+				<h:inputText id="nomeFantasia" value="#{gestaoEmpresasBean.empresa.nomeFantasia}" />
 
 				<h:outputLabel value="Tipo empresa: " for="tipo" />
-				<h:selectOneMenu id="tipo">
-					<f:selectItem itemLabel="--[Selecione]--" />
-					<f:selectItem itemLabel="MEI" itemValue="MEI" />
-					<f:selectItem itemLabel="LTDA" itemValue="LTDA" />
+				<h:selectOneMenu id="tipo" value="#{gestaoEmpresasBean.empresa.tipo}">
+					<f:selectItem itemLabel="Selecione..." />
+					<f:selectItems value="#{gestaoEmpresasBean.tiposEmpresa}"
+						var="tipoEmpresa" itemLabel="#{tipoEmpresa.descricao}" itemValue="#{tipoEmpresa}" />
 				</h:selectOneMenu>
 				
 				<h:outputLabel />
-				<h:commandButton value="Salvar" />
+				<h:commandButton value="Salvar" actionListener="#{gestaoEmpresasBean.salvar}" />
 			</h:panelGrid>
 			
 			<h:dataTable value="#{[0, 0, 0, 0]}">
