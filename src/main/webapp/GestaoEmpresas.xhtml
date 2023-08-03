@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> 
 	
 <h:head>
 
@@ -21,85 +22,73 @@
 	<div id="conteudo">
 		<h:form>
 			<h:panelGrid columns="2">
-				<h:outputLabel value="Razão Social: " for="razaoSocial" />
+				<p:outputLabel value="Razão Social: " for="razaoSocial" />
 				<h:panelGroup>
-					<h:inputText id="razaoSocial" value="#{gestaoEmpresasBean.empresa.razaoSocial}" required="true"/>
-					<h:message for="razaoSocial"></h:message>
+					<p:inputText id="razaoSocial" value="#{gestaoEmpresasBean.empresa.razaoSocial}" required="true"/>
+					<p:message for="razaoSocial"/>
 				</h:panelGroup>
 
-				<h:outputLabel value="Nome fantasia: " for="nomeFantasia" />
-				<h:inputText id="nomeFantasia" value="#{gestaoEmpresasBean.empresa.nomeFantasia}" />
+				<p:outputLabel value="Nome fantasia: " for="nomeFantasia" />
+				<p:inputText id="nomeFantasia" value="#{gestaoEmpresasBean.empresa.nomeFantasia}" />
 
-				<h:outputLabel value="Tipo empresa: " for="tipo" />
+				<p:outputLabel value="Tipo empresa: " for="tipo" />
 				<h:panelGroup>
-				<h:selectOneMenu id="tipo" value="#{gestaoEmpresasBean.empresa.tipo}" required="true">
+				<p:selectOneMenu id="tipo" value="#{gestaoEmpresasBean.empresa.tipo}" required="true">
 					<f:selectItem itemLabel="Selecione..." />
 					<f:selectItems value="#{gestaoEmpresasBean.tiposEmpresa}"
 						var="tipoEmpresa" itemLabel="#{tipoEmpresa.descricao}" itemValue="#{tipoEmpresa}" />
-				</h:selectOneMenu>
-				<h:message for="tipo"/>
+				</p:selectOneMenu>
+				<p:message for="tipo"/>
 				</h:panelGroup>
 
-				<h:outputLabel value="CNPJ: " for="cnpj" />
+				<p:outputLabel value="CNPJ: " for="cnpj" />
 				<h:panelGroup>
-					<h:inputText id="cnpj" value="#{gestaoEmpresasBean.empresa.cnpj}"
-						label="CNPJ" >
+					<p:inputText id="cnpj" value="#{gestaoEmpresasBean.empresa.cnpj}">
 						<f:validateLength minimum="18" maximum="18" />
-					</h:inputText>
-					<h:message for="cnpj" />
+					</p:inputText>
+					<p:message for="cnpj" />
 				</h:panelGroup>
 				
-				<h:outputLabel value="Data fundação: " for="dataFundacao" />
+				<p:outputLabel value="Data fundação: " for="dataFundacao" />
 				<h:panelGroup>
-					<h:inputText id="dataFundacao" value="#{gestaoEmpresasBean.empresa.dataFundacao}"
+					<p:inputText id="dataFundacao" value="#{gestaoEmpresasBean.empresa.dataFundacao}"
 						label="Data fundação" >
 						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</h:inputText>
-					<h:message for="dataFundacao" />
+					</p:inputText>
+					<p:message for="dataFundacao" />
 				</h:panelGroup>
 				
-				<h:outputLabel value="Faturamento: " for="faturamento" />
+				<p:outputLabel value="Faturamento: " for="faturamento" />
 				<h:panelGroup>
-					<h:inputText id="faturamento" value="#{gestaoEmpresasBean.empresa.faturamento}" 
+					<p:inputText id="faturamento" value="#{gestaoEmpresasBean.empresa.faturamento}" 
 						label="Faturamento"> 
 						<f:convertNumber pattern="#,##0.00" />
 						<f:validateDoubleRange minimum="0" />
-					</h:inputText>
-					<h:message for="faturamento" />
+					</p:inputText>
+					<p:message for="faturamento" />
 				</h:panelGroup>
 				
 				<h:outputLabel />
-				<h:commandButton value="Salvar" actionListener="#{gestaoEmpresasBean.salvar}" />
+				<p:commandButton value="Salvar" actionListener="#{gestaoEmpresasBean.salvar}" 
+					update="@form"/>
 				
 				<h:outputLabel />
-				<h:commandLink value="Ajuda?" action="#{gestaoEmpresasBean.ajuda}" />
+				<p:commandLink value="Ajuda?" action="#{gestaoEmpresasBean.ajuda}" />
 			</h:panelGrid>
 			
-			<h:dataTable value="#{[0, 0, 0, 0]}">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value= "Razão social" />
-					</f:facet>
-					
+			<p:dataTable value="#{[0, 0, 0, 0]}">
+				<p:column headerText="Razão social">	
 					<h:outputText value= "Algaworks Softwares, Treinamnetos LTDA" />
-				</h:column>
+				</p:column>
 				
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value= "Nome fantasia" />
-					</f:facet>
-					
+				<p:column headerText="Nome fantasia">
 					<h:outputText value= "Algaworks" />
-				</h:column>
+				</p:column>
 			
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value= "Tipo Empresa" />
-					</f:facet>
-					
+				<p:column headerText="Tipo empresa">
 					<h:outputText value= "LTDA" />
-				</h:column>
-			</h:dataTable>
+				</p:column>
+			</p:dataTable>
 		</h:form>
 
 	</div>
