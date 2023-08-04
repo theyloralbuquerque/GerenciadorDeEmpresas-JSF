@@ -27,8 +27,7 @@ public class Empresas implements Serializable {
 		return manager.find(Empresa.class, id); // find() busca uma entidade específica no banco de dados com base em sua chave primária.
 	}
 
-	public List<Empresa> pesquisar(String nome) {
-		
+	public List<Empresa> pesquisar(String nome) {		
 		String jpql = "from Empresa where nomeFantasia like :nomeFantasia";
 		
 		TypedQuery<Empresa> query = manager
@@ -39,6 +38,11 @@ public class Empresas implements Serializable {
 		
 		// getResultList() retorna os resultados da consulta como uma lista de objetos.
 		return query.getResultList();
+	}
+	
+	// Método que retornará do BD todas as empresas em uma lista.
+	public List<Empresa> todas() {		
+		return manager.createQuery("from Empresa", Empresa.class).getResultList();
 	}
 
 	public Empresa guardar(Empresa empresa) {

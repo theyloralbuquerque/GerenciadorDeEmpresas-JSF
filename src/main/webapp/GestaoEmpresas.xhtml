@@ -5,12 +5,14 @@
 	xmlns:p="http://primefaces.org/ui"> 
 	
 <h:head>
-
 <meta charset="UTF-8" />
-	<title>Gestão Empresas</title>
+<title>Gestão Empresas</title>
 
-	<h:outputStylesheet library="algaworks" name="estilo.css" />
-
+<h:outputStylesheet library="algaworks" name="estilo.css" />
+	
+<f:metadata>
+	<f:viewAction action="#{gestaoEmpresasBean.todasEmpresas}"/>
+</f:metadata>
 </h:head>
 
 <h:body>
@@ -19,77 +21,28 @@
 		<h:graphicImage library="algaworks" name="logo.png" />
 	</header>
 
+	<h2>Cadastro de Empresas</h2>
+	
 	<div id="conteudo">
-		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Razão Social: " for="razaoSocial" />
-				<h:panelGroup>
-					<p:inputText id="razaoSocial" value="#{gestaoEmpresasBean.empresa.razaoSocial}" required="true"/>
-					<p:message for="razaoSocial"/>
-				</h:panelGroup>
-
-				<p:outputLabel value="Nome fantasia: " for="nomeFantasia" />
-				<p:inputText id="nomeFantasia" value="#{gestaoEmpresasBean.empresa.nomeFantasia}" />
-
-				<p:outputLabel value="Tipo empresa: " for="tipo" />
-				<h:panelGroup>
-				<p:selectOneMenu id="tipo" value="#{gestaoEmpresasBean.empresa.tipo}" required="true">
-					<f:selectItem itemLabel="Selecione..." />
-					<f:selectItems value="#{gestaoEmpresasBean.tiposEmpresa}"
-						var="tipoEmpresa" itemLabel="#{tipoEmpresa.descricao}" itemValue="#{tipoEmpresa}" />
-				</p:selectOneMenu>
-				<p:message for="tipo"/>
-				</h:panelGroup>
-
-				<p:outputLabel value="CNPJ: " for="cnpj" />
-				<h:panelGroup>
-					<p:inputText id="cnpj" value="#{gestaoEmpresasBean.empresa.cnpj}">
-						<f:validateLength minimum="18" maximum="18" />
-					</p:inputText>
-					<p:message for="cnpj" />
-				</h:panelGroup>
-				
-				<p:outputLabel value="Data fundação: " for="dataFundacao" />
-				<h:panelGroup>
-					<p:inputText id="dataFundacao" value="#{gestaoEmpresasBean.empresa.dataFundacao}"
-						label="Data fundação" >
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</p:inputText>
-					<p:message for="dataFundacao" />
-				</h:panelGroup>
-				
-				<p:outputLabel value="Faturamento: " for="faturamento" />
-				<h:panelGroup>
-					<p:inputText id="faturamento" value="#{gestaoEmpresasBean.empresa.faturamento}" 
-						label="Faturamento"> 
-						<f:convertNumber pattern="#,##0.00" />
-						<f:validateDoubleRange minimum="0" />
-					</p:inputText>
-					<p:message for="faturamento" />
-				</h:panelGroup>
-				
-				<h:outputLabel />
-				<p:commandButton value="Salvar" actionListener="#{gestaoEmpresasBean.salvar}" 
-					update="@form"/>
-				
-				<h:outputLabel />
-				<p:commandLink value="Ajuda?" action="#{gestaoEmpresasBean.ajuda}" />
-			</h:panelGrid>
+		
+		<p:dataTable value="#{gestaoEmpresasBean.listaEmpresas}"
+			var="empresa" emptyMessage="Nenhuma informação a ser exibida.">
+			<p:column headerText="Razão social">
+				<h:outputText value="#{empresa.razaoSocial}"/>
+			</p:column>
 			
-			<p:dataTable value="#{[0, 0, 0, 0]}">
-				<p:column headerText="Razão social">	
-					<h:outputText value= "Algaworks Softwares, Treinamnetos LTDA" />
-				</p:column>
-				
-				<p:column headerText="Nome fantasia">
-					<h:outputText value= "Algaworks" />
-				</p:column>
+			<p:column headerText="Nome fantasia">
+				<h:outputText value="#{empresa.nomeFantasia}"/>
+			</p:column>
 			
-				<p:column headerText="Tipo empresa">
-					<h:outputText value= "LTDA" />
-				</p:column>
-			</p:dataTable>
-		</h:form>
+			<p:column headerText="Tipo empresa">
+				<h:outputText value="#{empresa.tipo}"/>
+			</p:column>
+			
+			<p:column headerText="Ramo atividade">
+				<h:outputText value="#{empresa.ramoAtividade.descricao}"/>
+			</p:column>
+		</p:dataTable>
 
 	</div>
 
