@@ -11,7 +11,8 @@
 <h:outputStylesheet library="algaworks" name="estilo.css" />
 	
 <f:metadata>
-	<f:viewAction action="#{gestaoEmpresasBean.todasEmpresas}"/>
+	<!-- Invocação do método todasEmpresas() para popular a minha Lista com os dados da tabela no BD -->
+	<f:viewAction action="#{gestaoEmpresasBean.todasEmpresas}"/> 
 </f:metadata>
 </h:head>
 
@@ -26,7 +27,8 @@
 	<div id="conteudo">
 		
 		<p:dataTable value="#{gestaoEmpresasBean.listaEmpresas}"
-			var="empresa" emptyMessage="Nenhuma informação a ser exibida.">
+			var="empresa" emptyMessage="Nenhuma informação a ser exibida."
+			paginator="true" rows="10" paginatorPosition="bottom">
 			<p:column headerText="Razão social">
 				<h:outputText value="#{empresa.razaoSocial}"/>
 			</p:column>
