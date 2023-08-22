@@ -24,13 +24,14 @@
 			<p:commandButton value="Pesquisar" icon="fa fa fa-search" />
 			
 			<span class="ui-separator">
-	                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+	        	<span class="ui-icon ui-icon-grip-dotted-vertical" />
 	        </span>
 			
-			<p:commandButton value="Nova" icon="fa fa-plus" />
+			<p:commandButton value="Nova" icon="fa fa-plus" 
+				onclick="PF('empresaDialogWidgetVar').show()"/>
 			
 			<span class="ui-separator">
-	                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+	        	<span class="ui-icon ui-icon-grip-dotted-vertical" />
 	        </span>
 			
 			<p:commandButton title="Editar" icon="fa fa-edit" />
@@ -38,7 +39,7 @@
 			<p:commandButton title="Excluir" icon="fa fa-trash" />
 			
 			<span class="ui-separator">
-	                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+	        	<span class="ui-icon ui-icon-grip-dotted-vertical" />
 	        </span>
 			
 			<p:commandButton title="Exportar para o Excel" icon="fa fa-file-excel-o" />
@@ -66,6 +67,11 @@
 				<h:outputText value="#{empresa.ramoAtividade.descricao}"/>
 			</p:column>
 		</p:dataTable>
+		
+		<p:dialog header="Nova empresa" widgetVar="empresaDialogWidgetVar" 
+			modal="true" resizable="false" closeOnEscape="true">
+			<p:commandButton value="Teste"/>
+		</p:dialog>
 	</h:form>
 </ui:define>
 
