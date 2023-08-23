@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.algaworks.erp.model.Empresa;
+import com.algaworks.erp.model.TipoEmpresa;
 import com.algaworks.erp.repository.Empresas;
 import com.algaworks.erp.util.FacesMessages;
 
@@ -53,5 +54,9 @@ public class GestaoEmpresasBean implements Serializable{
 	
 	public void setTermoPesquisa(String termoPesquisa) {
 		this.termoPesquisa = termoPesquisa;
+	}
+	
+	public TipoEmpresa[] getTiposEmpresa() {
+		return TipoEmpresa.values();
 	}
 }
