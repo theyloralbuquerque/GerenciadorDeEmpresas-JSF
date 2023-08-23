@@ -17,11 +17,16 @@
 	</f:metadata>
 
 	<h:form>
+		<!-- Exibe a mensagem armazenada no FacesMessage -->
+		<p:messages autoUpdate="true"/> 
+		
 		<p:toolbar>
 			<f:facet name="left">
-			<p:inputText placeholder="Digite aqui um termo para pesquisa..." size="30"/>
+			<p:inputText placeholder="Digite aqui um termo para pesquisa..." 
+				size="30" value="#{gestaoEmpresasBean.termoPesquisa}"/>
 			
-			<p:commandButton value="Pesquisar" icon="fa fa fa-search" />
+			<p:commandButton value="Pesquisar" icon="fa fa-search" 
+				actionListener="#{gestaoEmpresasBean.pesquisar}" update="empresasDataTable"/>
 			
 			<span class="ui-separator">
 	        	<span class="ui-icon ui-icon-grip-dotted-vertical" />
@@ -48,7 +53,7 @@
 		
 		<p:spacer heigth="20px"/>
 		
-		<p:dataTable value="#{gestaoEmpresasBean.listaEmpresas}"
+		<p:dataTable id="empresasDataTable" value="#{gestaoEmpresasBean.listaEmpresas}"
 			var="empresa" emptyMessage="Nenhuma informação a ser exibida."
 			paginator="true" rows="10" paginatorPosition="bottom">
 			<p:column headerText="Razão social" sortBy="#{empresa.razaoSocial}">

@@ -27,18 +27,20 @@ public class Empresas implements Serializable {
 		return manager.find(Empresa.class, id); // find() busca uma entidade específica no banco de dados com base em sua chave primária.
 	}
 
+	// Método que pesquisa por razaoSocial no BD. 
 	public List<Empresa> pesquisar(String nome) {		
-		String jpql = "from Empresa where nomeFantasia like :nomeFantasia";
+		String jpql = "from Empresa where razaoSocial like :razaoSocial";
 		
 		TypedQuery<Empresa> query = manager
-				.createQuery(jpql, Empresa.class); // Cria uma query com a String contida em jpql e armazena o retorno em query.
+			.createQuery(jpql, Empresa.class); // Cria uma query com a String contida em jpql e armazena o retorno em query.
 		
 		// setParameter() define os parâmetros de uma consulta no Java. (O primeiro parâmetro é a coluna e o segundo parâmetro é o valor)
-		query.setParameter("nomeFantasia", nome + "%"); 
+		query.setParameter("razaoSocial", nome + "%"); 
 		
 		// getResultList() retorna os resultados da consulta como uma lista de objetos.
 		return query.getResultList();
 	}
+	
 	
 	// Método que retornará do BD todas as empresas em uma lista.
 	public List<Empresa> todas() {		
