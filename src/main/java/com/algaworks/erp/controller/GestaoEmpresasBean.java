@@ -3,13 +3,16 @@ package com.algaworks.erp.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.convert.Converter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.algaworks.erp.model.Empresa;
+import com.algaworks.erp.model.RamoAtividade;
 import com.algaworks.erp.model.TipoEmpresa;
 import com.algaworks.erp.repository.Empresas;
+import com.algaworks.erp.repository.RamoAtividades;
 import com.algaworks.erp.util.FacesMessages;
 
 @Named // @Named deixa a classe acessível a qualquer uma das páginas xhtml do projeto.
@@ -24,9 +27,14 @@ public class GestaoEmpresasBean implements Serializable{
 	@Inject
 	private FacesMessages messages;
 	
+	@Inject
+	private RamoAtividades ramoAtividades;
+	
 	private List<Empresa> listaEmpresas;
 	
 	private String termoPesquisa; // Propriedade que será vinculada com o primeiro inputText da toolbar (input de pesquisar).
+	
+	private Converter ramoAtividadeConverter;
 	
 	public void pesquisar() { // Método que será invocado pelo botão 'pesquisar'.
 		listaEmpresas = empresas.pesquisar(termoPesquisa);
@@ -44,6 +52,15 @@ public class GestaoEmpresasBean implements Serializable{
 		listaEmpresas = empresas.todas();
 	}
 	
+	// Método que realiza o autoComplete e retorna uma lista com os elementos do banco.
+	public List<RamoAtividade> completarRamoAtividade(String termo) {
+		List<RamoAtividade> listaRamoAtividades = ramoAtividades.pesquisar(termo);
+		
+		ramoAtividadeConverter = new RamoAtividadeConverter(listaRamoAtividades);
+		
+		return listaRamoAtividades;
+	}
+	
 	public List<Empresa> getListaEmpresas() {
 		return listaEmpresas;
 	}
@@ -58,5 +75,9 @@ public class GestaoEmpresasBean implements Serializable{
 	
 	public TipoEmpresa[] getTiposEmpresa() {
 		return TipoEmpresa.values();
+	}
+	
+	public Converter getRamoAtividadeConverter() {
+		return ramoAtividadeConverter;
 	}
 }
