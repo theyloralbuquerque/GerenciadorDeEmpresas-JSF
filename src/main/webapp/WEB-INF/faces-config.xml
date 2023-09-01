@@ -8,6 +8,8 @@
 		<locale-config>
 			<default-locale>pt_BR</default-locale>
 		</locale-config>
+		
+		<message-bundle>com.algaworks.erp.Messages</message-bundle>
 	</application>
-
+	
 </faces-config>
