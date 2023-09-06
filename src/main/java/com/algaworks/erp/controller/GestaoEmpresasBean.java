@@ -26,13 +26,13 @@ public class GestaoEmpresasBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private Empresas empresas;
+	private Empresas empresas; // Injeção do repository de Empresa.
 	
 	@Inject
 	private FacesMessages messages;
 	
 	@Inject
-	private RamoAtividades ramoAtividades;
+	private RamoAtividades ramoAtividades; // Injeção do repository de RamoAtividade.
 	
 	@Inject
 	private CadastroEmpresaService cadastroEmpresaService; // Injeção do Facade/Service CadastroEmpresaService.
@@ -45,6 +45,11 @@ public class GestaoEmpresasBean implements Serializable{
 	
 	private Empresa empresa; // Propriedade quer será usada para vincular o formulário ao bean.
 	
+	// Método que instancia um ramoAtividadeConverter para que a classe RamoAtividadeConverter saiba qual empresa eu estou editando.
+	public void prepararEdicao() {
+		ramoAtividadeConverter = new RamoAtividadeConverter(Arrays.asList(empresa.getRamoAtividade()));
+	}
+	
 	public void prepararNovaEmpresa() { // Método invocado a partir do momento que o botão "Nova" for clicado.
 		empresa = new Empresa();
 	}
@@ -52,15 +57,28 @@ public class GestaoEmpresasBean implements Serializable{
 	public void salvar() { // Método que salva uma empresa no BD conforme os dados recebidos pela page.
 		cadastroEmpresaService.salvar(empresa);
 		
-		if (jaHouvePesquisa()) { 
+		/*if (jaHouvePesquisa()) { 
 			pesquisar(); // Se já tiver acontecido a pesquisa desse termo, chama o método pesquisar(). 
 		} else {
 			todasEmpresas();
-		}
+		}*/
+		
+		atualizarRegistros();
+		
 		messages.info("Empresa salva com sucesso!");
 		
 		RequestContext.getCurrentInstance().update(Arrays.asList(
 				"frm:empresasDataTable", "frm:messages"));
+	}
+	
+	public void excluir() {
+		cadastroEmpresaService.excluir(empresa);
+		
+		empresa = null;
+		
+		atualizarRegistros();
+		
+		messages.info("Empresa excluída com sucesso!");
 	}
 	
 	public void pesquisar() { // Método que será invocado pelo botão 'pesquisar'.
@@ -86,6 +104,14 @@ public class GestaoEmpresasBean implements Serializable{
 		ramoAtividadeConverter = new RamoAtividadeConverter(listaRamoAtividades);
 		
 		return listaRamoAtividades;
+	}
+	
+	private void atualizarRegistros() {
+		if (jaHouvePesquisa()) { 
+			pesquisar(); // Se já tiver acontecido a pesquisa desse termo, chama o método pesquisar(). 
+		} else {
+			todasEmpresas();
+		}
 	}
 	
 	private boolean jaHouvePesquisa() { // Método que verifica se já houve uma pesquisa desse termo no sistema.

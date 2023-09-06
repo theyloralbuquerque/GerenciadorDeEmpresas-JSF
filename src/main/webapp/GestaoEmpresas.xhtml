@@ -45,10 +45,18 @@
 	        </span>
 			
 			<p:commandButton title="Editar" icon="fa fa-edit"
-				disabled="#{not gestaoEmpresasBean.empresaSelecionada}" />
+				disabled="#{not gestaoEmpresasBean.empresaSelecionada}" 
+				actionListener="#{gestaoEmpresasBean.prepararEdicao}"
+				oncomplete="PF('empresaDialogWidgetVar').show()"
+				update="empresaDialog" process="@this">
+				<p:resetInput target="empresaDialog"/>
+			</p:commandButton>
 			
 			<p:commandButton title="Excluir" icon="fa fa-trash"
-				disabled="#{not gestaoEmpresasBean.empresaSelecionada}" />
+				disabled="#{not gestaoEmpresasBean.empresaSelecionada}" 
+				actionListener="#{gestaoEmpresasBean.excluir}"
+				update="messages empresasDataTable toolbar" 
+				process="@this"/>
 			
 			<span class="ui-separator">
 	        	<span class="ui-icon ui-icon-grip-dotted-vertical" />
@@ -129,7 +137,7 @@
 					itemLabel="#{ramoAtividade.descricao}" itemValue="#{ramoAtividade}"/>
 				
 				<h:outputLabel />
-				<p:commandButton id="salvarCommandButton" actionListener="#{gestaoEmpresasBean.salvar}"
+				<p:commandButton id="salvarCommandButton" value="Salvar" actionListener="#{gestaoEmpresasBean.salvar}"
 					update="empresaPanelGrid empresaMessages"
 					oncomplete="if (!args.validationFailed) PF('empresaDialogWidgetVar').hide()" process="empresaDialog"/>
 			</h:panelGrid>	
