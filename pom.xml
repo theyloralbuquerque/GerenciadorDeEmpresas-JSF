@@ -15,6 +15,13 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.15</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet</artifactId>
 			<version>2.4.0.Final</version>
